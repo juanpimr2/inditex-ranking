@@ -1,8 +1,8 @@
 package io.github.juanpimr2.inditex_ranking.app.controller;
 
-import io.github.juanpimr2.inditex_ranking.domain.Product;
-import io.github.juanpimr2.inditex_ranking.dto.RankRequest;
-import io.github.juanpimr2.inditex_ranking.dto.RankResponse;
+import io.github.juanpimr2.inditex_ranking.domain.model.Product;
+import io.github.juanpimr2.inditex_ranking.domain.dto.RankRequest;
+import io.github.juanpimr2.inditex_ranking.domain.dto.RankResponse;
 import io.github.juanpimr2.inditex_ranking.infrastructure.query.ProductGetAllProductsQuery;
 
 import io.github.juanpimr2.inditex_ranking.service.ranking.RankingService;

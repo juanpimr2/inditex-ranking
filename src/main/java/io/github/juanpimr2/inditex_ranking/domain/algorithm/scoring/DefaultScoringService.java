@@ -1,8 +1,8 @@
-package io.github.juanpimr2.inditex_ranking.infrastructure.scoring;
+package io.github.juanpimr2.inditex_ranking.domain.algorithm.scoring;
 
-import io.github.juanpimr2.inditex_ranking.domain.Product;
-import io.github.juanpimr2.inditex_ranking.domain.RankedProduct;
-import io.github.juanpimr2.inditex_ranking.dto.Weights;
+import io.github.juanpimr2.inditex_ranking.domain.model.Product;
+import io.github.juanpimr2.inditex_ranking.domain.model.RankedProduct;
+import io.github.juanpimr2.inditex_ranking.domain.dto.Weights;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,14 +1,13 @@
-package io.github.juanpimr2.inditex_ranking.service.algorithm.impl;
+package io.github.juanpimr2.inditex_ranking.domain.algorithm.impl;
 
-import io.github.juanpimr2.inditex_ranking.domain.Product;
-import io.github.juanpimr2.inditex_ranking.domain.RankedProduct;
-import io.github.juanpimr2.inditex_ranking.dto.Weights;
-import io.github.juanpimr2.inditex_ranking.infrastructure.scoring.DefaultScoringService;
-import io.github.juanpimr2.inditex_ranking.infrastructure.sorting.MergeSortService;
-import io.github.juanpimr2.inditex_ranking.service.algorithm.RankingAlgorithm;
+import io.github.juanpimr2.inditex_ranking.domain.model.Product;
+import io.github.juanpimr2.inditex_ranking.domain.model.RankedProduct;
+import io.github.juanpimr2.inditex_ranking.domain.dto.Weights;
+import io.github.juanpimr2.inditex_ranking.domain.algorithm.scoring.DefaultScoringService;
+import io.github.juanpimr2.inditex_ranking.domain.algorithm.sorting.MergeSortService;
+import io.github.juanpimr2.inditex_ranking.domain.algorithm.RankingAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

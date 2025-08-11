@@ -1,6 +1,6 @@
-package io.github.juanpimr2.inditex_ranking.dto;
+package io.github.juanpimr2.inditex_ranking.domain.dto;
 
-import io.github.juanpimr2.inditex_ranking.domain.Product;
+import io.github.juanpimr2.inditex_ranking.domain.model.Product;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

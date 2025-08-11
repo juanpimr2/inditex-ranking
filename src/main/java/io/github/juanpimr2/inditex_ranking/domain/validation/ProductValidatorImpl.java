@@ -1,6 +1,6 @@
-package io.github.juanpimr2.inditex_ranking.service.ranking.validation;
+package io.github.juanpimr2.inditex_ranking.domain.validation;
 
-import io.github.juanpimr2.inditex_ranking.domain.Product;
+import io.github.juanpimr2.inditex_ranking.domain.model.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

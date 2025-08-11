@@ -1,4 +1,4 @@
-package io.github.juanpimr2.inditex_ranking.dto;
+package io.github.juanpimr2.inditex_ranking.domain.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMax;

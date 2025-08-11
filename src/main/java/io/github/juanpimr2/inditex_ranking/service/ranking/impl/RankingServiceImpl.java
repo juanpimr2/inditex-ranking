@@ -1,14 +1,15 @@
 package io.github.juanpimr2.inditex_ranking.service.ranking.impl;
 
-import io.github.juanpimr2.inditex_ranking.domain.Product;
-import io.github.juanpimr2.inditex_ranking.domain.RankedProduct;
-import io.github.juanpimr2.inditex_ranking.dto.RankRequest;
-import io.github.juanpimr2.inditex_ranking.dto.Weights;
+import io.github.juanpimr2.inditex_ranking.domain.model.Product;
+import io.github.juanpimr2.inditex_ranking.domain.model.RankedProduct;
+import io.github.juanpimr2.inditex_ranking.domain.dto.RankRequest;
+import io.github.juanpimr2.inditex_ranking.domain.dto.Weights;
 import io.github.juanpimr2.inditex_ranking.infrastructure.query.ProductGetAllProductsQuery;
-import io.github.juanpimr2.inditex_ranking.service.algorithm.RankingAlgorithm;
+import io.github.juanpimr2.inditex_ranking.domain.algorithm.RankingAlgorithm;
 import io.github.juanpimr2.inditex_ranking.service.base.BaseService;
 import io.github.juanpimr2.inditex_ranking.service.ranking.RankingService;
-import io.github.juanpimr2.inditex_ranking.service.ranking.validation.ProductValidator;
+import io.github.juanpimr2.inditex_ranking.domain.validation.ProductValidator;
+import io.github.juanpimr2.inditex_ranking.utils.constants.ServiceConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -56,7 +57,7 @@ public class RankingServiceImpl extends BaseService<RankRequest, List<RankedProd
         final List<Product> items = request.getProducts(); // ya resueltos en validate()
         final Optional<Weights> weightsOpt = Optional.ofNullable(request.getWeights());
 
-        log.info("Calculando ranking para {} productos. Pesos: salesUnits={}, stockRatio={}",
+        log.info(ServiceConstants.CALCULANDO_RANKING_PARA_PRODUCTOS_PESOS_SALES_UNITS_STOCK_RATIO,
                 items.size(),
                 weightsOpt.map(Weights::getSalesUnits).orElse(null),
                 weightsOpt.map(Weights::getStockRatio).orElse(null));
@@ -64,8 +65,8 @@ public class RankingServiceImpl extends BaseService<RankRequest, List<RankedProd
         final List<RankedProduct> ranked =
                 algorithm.calculateRanking(items, request.getWeights());
 
-        log.debug("Ranking generado. Top1: {}",
-                ranked.isEmpty() ? "N/A" : ranked.get(0).getProduct().getName());
+        log.debug(ServiceConstants.RANKING_GENERADO_TOP_1,
+                ranked.isEmpty() ? ServiceConstants.NINGUNA : ranked.get(0).getProduct().getName());
 
 
         return ranked;

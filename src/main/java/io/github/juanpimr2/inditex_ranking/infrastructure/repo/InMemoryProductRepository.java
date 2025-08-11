@@ -1,6 +1,6 @@
 package io.github.juanpimr2.inditex_ranking.infrastructure.repo;
 
-import io.github.juanpimr2.inditex_ranking.domain.Product;
+import io.github.juanpimr2.inditex_ranking.domain.model.Product;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;

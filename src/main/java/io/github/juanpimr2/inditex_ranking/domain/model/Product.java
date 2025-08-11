@@ -1,4 +1,4 @@
-package io.github.juanpimr2.inditex_ranking.domain;
+package io.github.juanpimr2.inditex_ranking.domain.model;
 
 import lombok.*;
 import java.util.Map;

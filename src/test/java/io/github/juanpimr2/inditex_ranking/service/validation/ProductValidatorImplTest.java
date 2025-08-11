@@ -1,8 +1,8 @@
 package io.github.juanpimr2.inditex_ranking.service.validation;
 
-import io.github.juanpimr2.inditex_ranking.domain.Product;
-import io.github.juanpimr2.inditex_ranking.service.ranking.validation.ProductValidatorImpl;
-import io.github.juanpimr2.inditex_ranking.service.ranking.validation.ValidationException;
+import io.github.juanpimr2.inditex_ranking.domain.model.Product;
+import io.github.juanpimr2.inditex_ranking.domain.validation.ProductValidatorImpl;
+import io.github.juanpimr2.inditex_ranking.domain.validation.ValidationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

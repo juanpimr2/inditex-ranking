@@ -1,6 +1,6 @@
-package io.github.juanpimr2.inditex_ranking.infrastructure.sorting;
+package io.github.juanpimr2.inditex_ranking.domain.algorithm.sorting;
 
-import io.github.juanpimr2.inditex_ranking.domain.RankedProduct;
+import io.github.juanpimr2.inditex_ranking.domain.model.RankedProduct;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayDeque;
@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Deque;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Servicio de ordenación basado en el algoritmo Merge Sort.

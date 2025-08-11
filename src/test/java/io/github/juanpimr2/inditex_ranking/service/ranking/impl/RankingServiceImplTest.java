@@ -1,13 +1,12 @@
 package io.github.juanpimr2.inditex_ranking.service.ranking.impl;
 
-import io.github.juanpimr2.inditex_ranking.domain.Product;
-import io.github.juanpimr2.inditex_ranking.domain.RankedProduct;
-import io.github.juanpimr2.inditex_ranking.dto.RankRequest;
-import io.github.juanpimr2.inditex_ranking.dto.Weights;
+import io.github.juanpimr2.inditex_ranking.domain.model.Product;
+import io.github.juanpimr2.inditex_ranking.domain.model.RankedProduct;
+import io.github.juanpimr2.inditex_ranking.domain.dto.RankRequest;
+import io.github.juanpimr2.inditex_ranking.domain.dto.Weights;
 import io.github.juanpimr2.inditex_ranking.infrastructure.query.ProductGetAllProductsQuery;
-import io.github.juanpimr2.inditex_ranking.service.algorithm.RankingAlgorithm;
-import io.github.juanpimr2.inditex_ranking.service.ranking.RankingService;
-import io.github.juanpimr2.inditex_ranking.service.ranking.validation.ProductValidator;
+import io.github.juanpimr2.inditex_ranking.domain.algorithm.RankingAlgorithm;
+import io.github.juanpimr2.inditex_ranking.domain.validation.ProductValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

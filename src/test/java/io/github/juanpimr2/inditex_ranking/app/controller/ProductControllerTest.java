@@ -1,7 +1,7 @@
 package io.github.juanpimr2.inditex_ranking.app.controller;
 
-import io.github.juanpimr2.inditex_ranking.domain.Product;
-import io.github.juanpimr2.inditex_ranking.domain.RankedProduct;
+import io.github.juanpimr2.inditex_ranking.domain.model.Product;
+import io.github.juanpimr2.inditex_ranking.domain.model.RankedProduct;
 import io.github.juanpimr2.inditex_ranking.infrastructure.query.ProductGetAllProductsQuery;
 import io.github.juanpimr2.inditex_ranking.service.ranking.RankingService;
 import org.junit.jupiter.api.Test;

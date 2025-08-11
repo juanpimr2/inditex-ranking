@@ -1,6 +1,6 @@
-package io.github.juanpimr2.inditex_ranking.dto;
+package io.github.juanpimr2.inditex_ranking.domain.dto;
 
-import io.github.juanpimr2.inditex_ranking.domain.RankedProduct;
+import io.github.juanpimr2.inditex_ranking.domain.model.RankedProduct;
 import lombok.*;
 
 import java.util.List;
