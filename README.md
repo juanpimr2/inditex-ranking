@@ -11,10 +11,20 @@ Servicio de ranking de productos con arquitectura limpia, desarrollado en Java 2
 - **Validación** de productos antes de procesar el ranking.
 - **Algoritmo de ranking personalizable** mediante la interfaz `RankingAlgorithm`.
 - **Algoritmo actual**:  
-  - Combina métricas como *unidades vendidas* (`salesUnits`) y *ratio de stock* (`stockRatio`).  
-  - **Normaliza** los valores para que cada peso esté entre 0 y 1.  
-  - Calcula un **score ponderado** usando los pesos definidos en `Weights`.  
-  - Ordena los productos de **mayor a menor puntuación** para obtener el ranking final.  
+  - Tipo: **Normalización Min-Max + Cálculo de Score Ponderado**.  
+  - Fórmula:  
+    \[
+    \text{score} = (w_{\text{ventas}} \cdot \text{ventas}_{\text{norm}}) + (w_{\text{stock}} \cdot \text{ratioStock})
+    \]
+    donde:
+      - \( w_{\text{ventas}} \) y \( w_{\text{stock}} \) son pesos normalizados.
+      - \( \text{ventas}_{\text{norm}} \) es el valor de ventas escalado a [0,1] mediante normalización min-max.
+      - \( \text{ratioStock} \) es el porcentaje de tallas con stock disponible.
+  - Ordenación: **Merge Sort** — complejidad temporal \(O(n \log n)\) y espacial \(O(n)\).
+  - Razones de elección:
+    - **Normalización Min-Max**: preserva las proporciones relativas entre valores y es computacionalmente ligera (\(O(n)\)).
+    - **Ponderación flexible**: permite ajustar fácilmente la relevancia de ventas vs stock según el escenario.
+    - **Merge Sort**: estable, predecible y eficiente para listas de tamaño medio-grande.
 - **Uso de Optional y logging estructurado** para trazabilidad.
 - **Test unitarios** con JUnit 5 y Mockito.
 - **Soporte Docker** para despliegue rápido.
