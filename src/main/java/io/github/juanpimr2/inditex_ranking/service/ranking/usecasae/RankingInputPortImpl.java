@@ -58,7 +58,7 @@ public class RankingInputPortImpl extends BaseService<RankRequest, RankResponse>
 
     @Override
     protected RankResponse doProcess(RankRequest request) {
-        // Convertimos TOs -> modelo para el algoritmo de dominio
+
         List<ProductTO> itemsTO = request.getProducts();
 
         Optional<WeightsTO> weightsOpt = Optional.ofNullable(request.getWeightsTO());
