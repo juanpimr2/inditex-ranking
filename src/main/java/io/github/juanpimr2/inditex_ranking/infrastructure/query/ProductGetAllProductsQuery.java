@@ -2,7 +2,7 @@ package io.github.juanpimr2.inditex_ranking.infrastructure.query;
 
 
 import io.github.juanpimr2.inditex_ranking.domain.model.Product;
-import io.github.juanpimr2.inditex_ranking.infrastructure.repo.InMemoryProductRepository;
+import io.github.juanpimr2.inditex_ranking.infrastructure.persistence.InMemoryProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

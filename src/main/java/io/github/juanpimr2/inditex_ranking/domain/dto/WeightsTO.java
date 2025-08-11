@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 @Schema(description = "Pesos relativos para el cálculo del score. " +
         "Rango [0..1]. No es necesario que sumen 1; se normalizan internamente.")
-public class Weights {
+public class WeightsTO {
 
     @Schema(description = "Peso relativo de las ventas. 0 desactiva, 1 máxima importancia.",
             example = "0.7", minimum = "0.0", maximum = "1.0")

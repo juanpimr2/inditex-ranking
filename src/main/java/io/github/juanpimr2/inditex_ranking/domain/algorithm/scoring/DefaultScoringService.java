@@ -1,8 +1,9 @@
 package io.github.juanpimr2.inditex_ranking.domain.algorithm.scoring;
 
+import io.github.juanpimr2.inditex_ranking.domain.dto.ProductTO;
+import io.github.juanpimr2.inditex_ranking.domain.dto.WeightsTO;
 import io.github.juanpimr2.inditex_ranking.domain.model.Product;
-import io.github.juanpimr2.inditex_ranking.domain.model.RankedProduct;
-import io.github.juanpimr2.inditex_ranking.domain.dto.Weights;
+import io.github.juanpimr2.inditex_ranking.domain.dto.response.RankedProduct;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class DefaultScoringService {
   /**
    * Calcula el ratio de tallas con stock disponible para un producto.
    */
-  private static double stockRatio(Product product) {
+  private static double stockRatio(ProductTO product) {
     if (Objects.isNull(product.getStockBySize()) || product.getStockBySize().isEmpty()) {
       return MIN_RATIO;
     }
@@ -50,18 +51,18 @@ public class DefaultScoringService {
    * Calcula el score para cada producto usando las métricas y pesos indicados.
    *
    * @param products lista de productos
-   * @param weights  configuración de pesos (opcional)
+   * @param weightsTO  configuración de pesos (opcional)
    * @return lista de productos con su puntuación calculada
    */
-  public List<RankedProduct> score(List<Product> products, Weights weights) {
+  public List<RankedProduct> score(List<ProductTO> products, WeightsTO weightsTO) {
 
     // 1) Pesos con defaults y normalización
-    double wSales = Optional.ofNullable(weights)
-            .map(Weights::getSalesUnits)
+    double wSales = Optional.ofNullable(weightsTO)
+            .map(WeightsTO::getSalesUnits)
             .orElse(DEFAULT_SALES_WEIGHT);
 
-    double wStock = Optional.ofNullable(weights)
-            .map(Weights::getStockRatio)
+    double wStock = Optional.ofNullable(weightsTO)
+            .map(WeightsTO::getStockRatio)
             .orElse(DEFAULT_STOCK_WEIGHT);
 
     // Si ambos pesos son cero, usar solo ventas como fallback
@@ -75,8 +76,8 @@ public class DefaultScoringService {
     wStock /= sum;
 
     // 2) Normalización de ventas
-    int minSales = products.stream().mapToInt(Product::getSalesUnits).min().orElse(0);
-    int maxSales = products.stream().mapToInt(Product::getSalesUnits).max().orElse(0);
+    int minSales = products.stream().mapToInt(ProductTO::getSalesUnits).min().orElse(0);
+    int maxSales = products.stream().mapToInt(ProductTO::getSalesUnits).max().orElse(0);
 
     final double finalWSales = wSales;
     final double finalWStock = wStock;

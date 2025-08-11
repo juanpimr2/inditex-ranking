@@ -1,6 +1,6 @@
 package io.github.juanpimr2.inditex_ranking.domain.algorithm.sorting;
 
-import io.github.juanpimr2.inditex_ranking.domain.model.RankedProduct;
+import io.github.juanpimr2.inditex_ranking.domain.dto.response.RankedProduct;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayDeque;

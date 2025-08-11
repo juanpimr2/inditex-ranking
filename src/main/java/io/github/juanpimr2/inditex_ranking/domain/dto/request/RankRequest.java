@@ -1,6 +1,7 @@
-package io.github.juanpimr2.inditex_ranking.domain.dto;
+package io.github.juanpimr2.inditex_ranking.domain.dto.request;
 
-import io.github.juanpimr2.inditex_ranking.domain.model.Product;
+import io.github.juanpimr2.inditex_ranking.domain.dto.ProductTO;
+import io.github.juanpimr2.inditex_ranking.domain.dto.WeightsTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -13,9 +14,9 @@ public class RankRequest {
 
   @Schema(description = "Pesos para la fórmula de scoring. Rango [0..1]. " +
           "No es obligatorio que sumen 1; se normalizan.")
-  private Weights weights;
+  private WeightsTO weightsTO;
 
   @Schema(description = "Listado de productos a evaluar (opcional). " +
           "Si no se envía, se toma la lista cargada en memoria.")
-  private List<Product> products;
+  private List<ProductTO> products;
 }
