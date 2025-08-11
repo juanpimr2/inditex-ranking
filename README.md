@@ -101,6 +101,11 @@ mvn clean install
 mvn spring-boot:run
 ```
 
+### Swagger
+```bash
+localhost:8080/swagger-ui/index.html
+```
+
 ---
 
 ## 🐳 Ejecución con Docker
