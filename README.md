@@ -10,24 +10,33 @@ Servicio de ranking de productos con arquitectura limpia, desarrollado en Java 2
 - **Inyección de dependencias** mediante Spring Boot y Lombok (`@RequiredArgsConstructor`).
 - **Validación** de productos antes de procesar el ranking.
 - **Algoritmo de ranking personalizable** mediante la interfaz `RankingAlgorithm`.
-- **Algoritmo actual**:  
-  - Tipo: **Normalización Min-Max + Cálculo de Score Ponderado**.  
-  - Fórmula:  
-    \[
-    \text{score} = (w_{\text{ventas}} \cdot \text{ventas}_{\text{norm}}) + (w_{\text{stock}} \cdot \text{ratioStock})
-    \]
-    donde:
-      - \( w_{\text{ventas}} \) y \( w_{\text{stock}} \) son pesos normalizados.
-      - \( \text{ventas}_{\text{norm}} \) es el valor de ventas escalado a [0,1] mediante normalización min-max.
-      - \( \text{ratioStock} \) es el porcentaje de tallas con stock disponible.
-  - Ordenación: **Merge Sort** — complejidad temporal \(O(n \log n)\) y espacial \(O(n)\).
-  - Razones de elección:
-    - **Normalización Min-Max**: preserva las proporciones relativas entre valores y es computacionalmente ligera (\(O(n)\)).
-    - **Ponderación flexible**: permite ajustar fácilmente la relevancia de ventas vs stock según el escenario.
-    - **Merge Sort**: estable, predecible y eficiente para listas de tamaño medio-grande.
+  - **Tipo:** Normalización *Min-Max* + cálculo de *score ponderado*.
+  - **Cómo funciona la fórmula:**
+    
+    El score se calcula así:  
+    **Score = (PesoVentas × VentasNormalizadas) + (PesoStock × RatioStock)**
+    
+    - **PesoVentas** y **PesoStock**: representan la importancia que damos a las ventas y al stock (por ejemplo, 70% ventas y 30% stock).  
+    - **VentasNormalizadas**: ajustamos las ventas reales a una escala de 0 a 1 usando *Min-Max normalization*, para que el producto con menos ventas sea 0 y el de más ventas sea 1.  
+    - **RatioStock**: es el porcentaje de tallas disponibles (si hay 3 tallas y 2 tienen stock, el ratio es `2/3 ≈ 0.66`).  
+
+    💡 Esto permite equilibrar popularidad y disponibilidad real para un ranking más justo.
+    
+  - **Ordenación:** Merge Sort (estable, predecible y eficiente).
+  - **Complejidad:**
+    - Normalización: **O(n)**.
+    - Ordenación: **O(n log n)** tiempo y **O(n)** espacio.
+  - **Motivos de elección:**
+    - *Normalización Min-Max:* ligera y preserva proporciones relativas.
+    - *Ponderación flexible:* fácil de ajustar según prioridades de negocio.
+    - *Merge Sort:* ideal para listas medianas/grandes donde se requiere orden estable.
+
+
 - **Uso de Optional y logging estructurado** para trazabilidad.
 - **Test unitarios** con JUnit 5 y Mockito.
 - **Soporte Docker** para despliegue rápido.
+
+
 
 
 ---
