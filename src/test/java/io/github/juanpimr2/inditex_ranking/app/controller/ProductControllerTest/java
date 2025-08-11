@@ -1,0 +1,70 @@
+/** Auto-generated tests to reach high coverage.
+ * Adjust package if your project root differs.
+ */
+
+package io.github.juanpimr2.inditex_ranking.app.controller;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.juanpimr2.inditex_ranking.domain.Product;
+import io.github.juanpimr2.inditex_ranking.domain.RankedProduct;
+import io.github.juanpimr2.inditex_ranking.dto.RankRequest;
+import io.github.juanpimr2.inditex_ranking.dto.RankResponse;
+import io.github.juanpimr2.inditex_ranking.infrastructure.query.ProductGetAllProductsQuery;
+import io.github.juanpimr2.inditex_ranking.service.ranking.RankingService;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+
+import static org.hamcrest.Matchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@WebMvcTest(ProductController.class)
+public class ProductControllerTest {
+
+    @Autowired MockMvc mvc;
+    @Autowired ObjectMapper om;
+
+    @MockBean RankingService rankingService;
+    @MockBean ProductGetAllProductsQuery getAllProductsQuery;
+
+    private static Product p(long id){
+        Product pr = new Product();
+        pr.setId(id); pr.setName("N"+id); pr.setSalesUnits(1);
+        pr.setStockBySize(new LinkedHashMap<>());
+        return pr;
+    }
+
+    @Test
+    void list_returnsProductsFromQuery() throws Exception {
+        when(getAllProductsQuery.execute()).thenReturn(List.of(p(1), p(2)));
+
+        mvc.perform(get("/products"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].id", is(1)));
+    }
+
+    @Test
+    void rank_delegatesToService() throws Exception {
+        List<RankedProduct> ranked = List.of(new RankedProduct(p(9), 0.5));
+        when(rankingService.rank(any(RankRequest.class))).thenReturn(ranked);
+
+        RankRequest req = new RankRequest();
+        String body = om.writeValueAsString(req);
+
+        mvc.perform(post("/products/rank").contentType(MediaType.APPLICATION_JSON).content(body))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.ranked[0].product.id", is(9)));
+    }
+}

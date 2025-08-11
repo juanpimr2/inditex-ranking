@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  inditex-ranking:
+    container_name: inditex-ranking
+    image: inditex-ranking:0.1
+    build:
+      context: 'C:/Users/sagas/OneDrive/Documentos/Proyecto de Prueba Agap2/inditex-ranking'
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+    restart: unless-stopped

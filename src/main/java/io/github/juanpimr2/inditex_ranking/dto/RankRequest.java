@@ -1,19 +1,21 @@
 package io.github.juanpimr2.inditex_ranking.dto;
 
 import io.github.juanpimr2.inditex_ranking.domain.Product;
-import jakarta.validation.constraints.*;
-import lombok.*;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
 import java.util.List;
 
-@Data @Builder @AllArgsConstructor @NoArgsConstructor
+@Data
+@Schema(description = "Petición para calcular el ranking. " +
+        "Si 'products' se omite o viene vacío, se usan los productos cargados en memoria.")
 public class RankRequest {
-  @NotNull private Weights weights;
-  private List<Product> products;
 
-  @Data @Builder @AllArgsConstructor @NoArgsConstructor
-  public static class Weights {
-    @DecimalMin("0.0") @DecimalMax("1.0") private double salesUnits;
-    @DecimalMin("0.0") @DecimalMax("1.0") private double stockRatio;
-  }
+  @Schema(description = "Pesos para la fórmula de scoring. Rango [0..1]. " +
+          "No es obligatorio que sumen 1; se normalizan.")
+  private Weights weights;
+
+  @Schema(description = "Listado de productos a evaluar (opcional). " +
+          "Si no se envía, se toma la lista cargada en memoria.")
+  private List<Product> products;
 }

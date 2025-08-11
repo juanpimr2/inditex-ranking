@@ -5,7 +5,7 @@ import java.util.Map;
 
 @Data @Builder @AllArgsConstructor @NoArgsConstructor
 public class Product {
-  private int id;
+  private long id;
   private String name;
   private int salesUnits;
   private Map<String,Integer> stockBySize;

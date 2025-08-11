@@ -1,0 +1,65 @@
+/** Auto-generated tests to reach high coverage.
+ * Adjust package if your project root differs.
+ */
+
+package io.github.juanpimr2.inditex_ranking.service.algorithm.impl;
+
+import io.github.juanpimr2.inditex_ranking.domain.Product;
+import io.github.juanpimr2.inditex_ranking.domain.RankedProduct;
+import io.github.juanpimr2.inditex_ranking.dto.Weights;
+import io.github.juanpimr2.inditex_ranking.service.algorithm.RankingAlgorithm;
+import org.junit.jupiter.api.Test;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class RankingAlgorithmImplTest {
+
+    private RankingAlgorithm alg = new RankingAlgorithmImpl();
+
+    private static Product p(long id, int sales, Map<String,Integer> stock){
+        Product pr = new Product();
+        pr.setId(id);
+        pr.setName("P" + id);
+        pr.setSalesUnits(sales);
+        pr.setStockBySize(stock);
+        return pr;
+    }
+
+    @Test
+    void score_normalizesWeightsAndOrdersByScore() {
+        Map<String,Integer> s1 = new LinkedHashMap<>(); s1.put("S",4); s1.put("M",9); s1.put("L",0);
+        Map<String,Integer> s2 = new LinkedHashMap<>(); s2.put("S",20); s2.put("M",2); s2.put("L",20);
+
+        List<Product> products = List.of(
+                p(1, 100, s1),
+                p(2, 80,  s2)
+        );
+
+        Weights w = new Weights();
+        w.setSalesUnits(0.1);
+        w.setStockRatio(0.9);
+
+        List<RankedProduct> ranked = alg.score(products, w);
+
+        assertEquals(2, ranked.size());
+        // With stock weight dominant, p2 should be first
+        assertEquals(2L, ranked.get(0).getProduct().getId());
+        assertTrue(ranked.get(0).getScore() >= ranked.get(1).getScore());
+    }
+
+    @Test
+    void score_defaultsWeightsIfNullAndHandlesEmptyStock() {
+        Product noStock = p(3, 10, null);
+        Weights nullWeights = null;
+
+        List<RankedProduct> out = alg.score(List.of(noStock), nullWeights);
+
+        assertEquals(1, out.size());
+        assertEquals(3L, out.get(0).getProduct().getId());
+        assertTrue(out.get(0).getScore() >= 0.0 && out.get(0).getScore() <= 1.0);
+    }
+}
