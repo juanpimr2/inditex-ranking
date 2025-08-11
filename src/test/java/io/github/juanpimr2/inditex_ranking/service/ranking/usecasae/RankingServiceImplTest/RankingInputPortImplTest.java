@@ -40,11 +40,9 @@ class RankingInputPortImplTest {
     @Spy private ProductMapper productMapper = Mappers.getMapper(ProductMapper.class);
     @Spy private RankMapper rankMapper = Mappers.getMapper(RankMapper.class);
 
-    // SUT
     @InjectMocks
     private RankingInputPortImpl service;
 
-    // ---------- helpers ----------
     private static Product model(Long id, String name, int units) {
         return Product.builder()
                 .id(id)
@@ -71,7 +69,6 @@ class RankingInputPortImplTest {
 
     @Test
     void rank_shouldUseRepositoryWhenProductsNullOrEmpty() {
-        // given: request sin productos
         RankRequest req = new RankRequest();
         req.setWeightsTO(new WeightsTO()); // valores por defecto (se normalizan en el algoritmo)
 
@@ -87,10 +84,8 @@ class RankingInputPortImplTest {
         );
         when(algorithm.calculateRanking(anyList(), any())).thenReturn(rankedList);
 
-        // when
         RankResponse response = service.rank(req);
 
-        // then
         assertThat(response).isNotNull();
         assertThat(response.getRanked()).usingRecursiveComparison().isEqualTo(rankedList);
 
@@ -116,17 +111,13 @@ class RankingInputPortImplTest {
         req.setProducts(bodyTO);
         req.setWeightsTO(new WeightsTO());
 
-        // esperado: validator recibe MODELOS mapeados desde el body
         List<Product> expectedModels = productMapper.toModelList(bodyTO);
 
-        // y el algoritmo recibe TOs exactamente como en el body
         List<RankedProduct> rankedList = List.of(ranked(bodyTO.get(0), 0.9));
         when(algorithm.calculateRanking(anyList(), any())).thenReturn(rankedList);
 
-        // when
         RankResponse response = service.rank(req);
 
-        // then
         assertThat(response).isNotNull();
         assertThat(response.getRanked()).usingRecursiveComparison().isEqualTo(rankedList);
 
@@ -145,7 +136,6 @@ class RankingInputPortImplTest {
 
     @Test
     void rank_shouldCreateEmptyRequestWhenNullAndUseRepo() {
-        // given: req = null → service crea uno vacío y usa repo
         List<Product> repo = List.of(model(1L, "A", 10));
         when(query.execute()).thenReturn(repo);
 
