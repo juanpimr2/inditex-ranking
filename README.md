@@ -10,9 +10,15 @@ Servicio de ranking de productos con arquitectura limpia, desarrollado en Java 2
 - **Inyección de dependencias** mediante Spring Boot y Lombok (`@RequiredArgsConstructor`).
 - **Validación** de productos antes de procesar el ranking.
 - **Algoritmo de ranking personalizable** mediante la interfaz `RankingAlgorithm`.
+- **Algoritmo actual**:  
+  - Combina métricas como *unidades vendidas* (`salesUnits`) y *ratio de stock* (`stockRatio`).  
+  - **Normaliza** los valores para que cada peso esté entre 0 y 1.  
+  - Calcula un **score ponderado** usando los pesos definidos en `Weights`.  
+  - Ordena los productos de **mayor a menor puntuación** para obtener el ranking final.  
 - **Uso de Optional y logging estructurado** para trazabilidad.
 - **Test unitarios** con JUnit 5 y Mockito.
 - **Soporte Docker** para despliegue rápido.
+
 
 ---
 
